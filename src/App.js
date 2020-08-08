@@ -1,17 +1,20 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
 
-// import SignupWithFormik from "./components/Forms/SignupWithFormik";
-import SignupFormik from "./components/Forms/SignupFormik";
-import LoginFormik from "./components/Forms/LoginFormik";
+import RegisterFormik from "./RegisterFormik";
+import LoginFormik from "./LoginFormik";
+import Home from "./Home";
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route path="/" exact component={LoginFormik} />
-        <Route path="/signup">
-          <SignupFormik />
+        <Route path="/register">
+          <RegisterFormik />
+        </Route>
+        <Route path="/home">
+          <Home />
         </Route>
       </Switch>
     </Router>

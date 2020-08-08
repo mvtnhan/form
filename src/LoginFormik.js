@@ -29,16 +29,15 @@ const LoginFomik = () => (
           .min(8, "Password must have min 8 characters"),
       })}
       onSubmit={(values) => {
-        if (localStorage.getItem(values.email) == null) {
-          alert("Email is not registered");
-        } else {
-          if (
-            localStorage.getItem(values.email) != null &&
-            localStorage.getItem(values.email.password) != null
-          ) {
-            alert("ss");
-          }
-        }
+        const accout = localStorage.getItem(values.email);
+        console.log(accout);
+        // if (localStorage.getItem(values.email) == null) {
+        //   alert("Email is not registered");
+        // } else if (localStorage.getItem(values.email) != null) {
+        //   alert(localStorage.values.email);
+        //   if (localStorage.getItem(values.password) != null) {
+        //   }
+        // }
       }}
     >
       {(formik) => (
@@ -51,7 +50,6 @@ const LoginFomik = () => (
               <Typography gutterBottom style={{ textAlign: "center" }}>
                 Login
               </Typography>
-
               <FormControl
                 fullWidth
                 margin="normal"
@@ -89,8 +87,8 @@ const LoginFomik = () => (
               </FormControl>
 
               <FormControl fullWidth margin="normal">
-                <Button color="primary" href="/signup">
-                  Sign up
+                <Button color="primary" href="/register">
+                  Register
                 </Button>
               </FormControl>
             </Paper>
