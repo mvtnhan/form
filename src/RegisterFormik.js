@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import React from "react";
-
+import { useHistory } from "react-router-dom";
 import { location } from "./location.js";
 
 import {
@@ -13,30 +13,47 @@ import {
   FormControlLabel,
   FormHelperText,
   Grid,
-  Input,
-  InputLabel,
   Paper,
   Typography,
 } from "@material-ui/core";
+
+import { makeStyles } from "@material-ui/core/styles";
+
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
+const useStyles = makeStyles({
+  Phone: {
+    padding: "16px",
+    border: "1px solid",
+    borderRadius: "3px",
+    borderColor: "rgba(118, 118, 118, 0.3)",
+    "& input": {
+      border: "none",
+    },
+  },
+  Paper: {
+    padding: "20px 15px",
+    marginTop: "30px",
+  },
+});
 function RegisterFormik() {
+  const styles = useStyles();
+  const history = useHistory();
   return (
     <div>
       <Formik
         initialValues={{
-          firstName: "Mai",
-          lastName: "name",
-          date: "1994-12-22",
+          firstName: "",
+          lastName: "",
+          date: "",
           email: "",
-          password: "Nh@n6796",
-          changepassword: "Nh@n6796",
+          password: "",
+          changepassword: "",
           receiveLetter: true,
           city: "",
           district: "",
-          phoneNumber: "+84929402895",
-          linkss: "",
+          phoneNumber: "",
         }}
         validationSchema={Yup.object().shape({
           firstName: Yup.string().required("Username is required"),
@@ -63,7 +80,7 @@ function RegisterFormik() {
             alert("Email is registered");
           } else {
             localStorage[values.email] = JSON.stringify(values);
-            window.location.href = "./";
+            history.push("/");
           }
         }}
       >
@@ -72,10 +89,7 @@ function RegisterFormik() {
             {console.log({ ...values })}
             <Grid container justify="center" alignContent="center">
               <Grid item xs={6} md={4}>
-                <Paper
-                  elevation={4}
-                  style={{ padding: "20px 15px", marginTop: "30px" }}
-                >
+                <Paper className={styles.Paper} elevation={4}>
                   <Typography gutterBottom>Signup</Typography>
 
                   <Grid container direction="row" spacing={5}>
@@ -86,9 +100,15 @@ function RegisterFormik() {
                         margin="normal"
                         error={touched.firstName && !!errors.firstName}
                       >
-                        <InputLabel>First Name</InputLabel>
                         <Field name="firstName">
-                          {({ field }) => <Input fullWidth {...field} />}
+                          {({ field }) => (
+                            <TextField
+                              id="firstName"
+                              label="First Name"
+                              variant="outlined"
+                              {...field}
+                            />
+                          )}
                         </Field>
 
                         {touched.firstName && (
@@ -104,9 +124,15 @@ function RegisterFormik() {
                         margin="normal"
                         error={touched.lastName && !!errors.lastName}
                       >
-                        <InputLabel>Last Name</InputLabel>
                         <Field name="lastName">
-                          {({ field }) => <Input fullWidth {...field} />}
+                          {({ field }) => (
+                            <TextField
+                              id="lastName"
+                              label="Last Name"
+                              variant="outlined"
+                              {...field}
+                            />
+                          )}
                         </Field>
                         {touched.lastName && (
                           <FormHelperText>{errors.lastName}</FormHelperText>
@@ -121,14 +147,16 @@ function RegisterFormik() {
                     margin="normal"
                     error={touched.date && !!errors.date}
                   >
-                    <InputLabel>{values.date === "" ? "" : "Date"}</InputLabel>
                     <Field name="date">
                       {({ field }) => (
-                        <Input
-                          fullWidth
+                        <TextField
+                          id="date"
+                          variant="outlined"
+                          label="Birth Day"
                           type="date"
-                          placeholder="YYYY-MM-DD"
-                          pattern="[1-9]{4}-[1-12]{2}-[1-31]{2}"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
                           {...field}
                         />
                       )}
@@ -154,6 +182,7 @@ function RegisterFormik() {
                               {...params}
                               name="city"
                               label="City/ Province"
+                              variant="outlined"
                             />
                           )}
                         />
@@ -166,7 +195,7 @@ function RegisterFormik() {
                       {({ field }) => (
                         <Autocomplete
                           id="district"
-                          options={location[values.city]}
+                          options={!!values.city ? location[values.city] : []}
                           disabled={!values.city}
                           getOptionLabel={(district) => district}
                           onChange={(_, value) =>
@@ -178,6 +207,7 @@ function RegisterFormik() {
                               {...params}
                               name="district"
                               label="District"
+                              variant="outlined"
                             />
                           )}
                         />
@@ -189,7 +219,7 @@ function RegisterFormik() {
                     <Field name="phoneNumber">
                       {({ field }) => (
                         <PhoneInput
-                          style={{ marginTop: "24px" }}
+                          className={styles.Phone}
                           placeholder="Enter phone number"
                           international
                           name="phoneNumber"
@@ -205,9 +235,15 @@ function RegisterFormik() {
                     margin="normal"
                     error={touched.email && !!errors.email}
                   >
-                    <InputLabel>Email</InputLabel>
                     <Field name="email">
-                      {({ field }) => <Input fullWidth {...field} />}
+                      {({ field }) => (
+                        <TextField
+                          id="email"
+                          label="Email"
+                          variant="outlined"
+                          {...field}
+                        />
+                      )}
                     </Field>
                     {touched.email && (
                       <FormHelperText>{errors.email}</FormHelperText>
@@ -219,10 +255,15 @@ function RegisterFormik() {
                     margin="normal"
                     error={touched.password && !!errors.password}
                   >
-                    <InputLabel>Password</InputLabel>
                     <Field name="password">
                       {({ field }) => (
-                        <Input fullWidth type="password" {...field} />
+                        <TextField
+                          id="password"
+                          label="Password"
+                          variant="outlined"
+                          type="password"
+                          {...field}
+                        />
                       )}
                     </Field>
                     {touched.password && (
@@ -235,10 +276,15 @@ function RegisterFormik() {
                     margin="normal"
                     error={touched.changepassword && !!errors.changepassword}
                   >
-                    <InputLabel>Confirm Password</InputLabel>
                     <Field name="changepassword">
                       {({ field }) => (
-                        <Input fullWidth type="password" {...field} />
+                        <TextField
+                          id="changepassword"
+                          label="Confirm Password"
+                          variant="outlined"
+                          type="password"
+                          {...field}
+                        />
                       )}
                     </Field>
                     {touched.changepassword && (
@@ -256,13 +302,18 @@ function RegisterFormik() {
                   </Field>
 
                   <FormControl fullWidth margin="normal">
-                    <Button color="primary" type="submit" href="">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      href=""
+                    >
                       Register
                     </Button>
                   </FormControl>
 
                   <FormControl fullWidth margin="normal">
-                    <Button color="primary" href="/">
+                    <Button variant="contained" color="primary" href="/">
                       Login
                     </Button>
                   </FormControl>

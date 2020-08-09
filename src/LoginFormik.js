@@ -1,102 +1,135 @@
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 import {
   Button,
   FormControl,
   FormHelperText,
   Grid,
-  Input,
-  InputLabel,
   Paper,
   Typography,
+  TextField,
 } from "@material-ui/core";
 
-const LoginFomik = () => (
-  <div>
-    <Formik
-      initialValues={{
-        email: "",
-        password: "",
-      }}
-      validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .required("Email is required")
-          .email("Email is invalid"),
-        password: Yup.string()
-          .required("Password is required")
-          .min(8, "Password must have min 8 characters"),
-      })}
-      onSubmit={(values) => {
-        const accout = localStorage.getItem(values.email);
-        console.log(accout);
-        // if (localStorage.getItem(values.email) == null) {
-        //   alert("Email is not registered");
-        // } else if (localStorage.getItem(values.email) != null) {
-        //   alert(localStorage.values.email);
-        //   if (localStorage.getItem(values.password) != null) {
-        //   }
-        // }
-      }}
-    >
-      {(formik) => (
-        <Form>
-          <Grid container justify="center" alignContent="center">
-            <Paper
-              elevation={4}
-              style={{ padding: "20px 15px", marginTop: "30px" }}
-            >
-              <Typography gutterBottom style={{ textAlign: "center" }}>
-                Login
-              </Typography>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={formik.touched.email && !!formik.errors.email}
-              >
-                <InputLabel>Email</InputLabel>
-                <Field name="email">
-                  {({ field }) => <Input fullWidth {...field} />}
-                </Field>
-                {formik.touched.email && (
-                  <FormHelperText>{formik.errors.email}</FormHelperText>
-                )}
-              </FormControl>
+const useStyles = makeStyles({
+  Paper: {
+    padding: "20px 15px",
+    marginTop: "30px",
+  },
+  Typography: {
+    textAlign: "center",
+  },
+  p: {
+    color: "red",
+    textAlign: "center",
+  },
+});
+const LoginFomik = () => {
+  const styles = useStyles();
+  const history = useHistory();
+  return (
+    <div>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+          err: false,
+        }}
+        validationSchema={Yup.object().shape({
+          email: Yup.string()
+            .required("Email is required")
+            .email("Email is invalid"),
+          password: Yup.string()
+            .required("Password is required")
+            .min(8, "Password must have min 8 characters"),
+        })}
+        onSubmit={(values) => {
+          const account = JSON.parse(localStorage.getItem(values.email));
 
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={formik.touched.password && !!formik.errors.password}
-              >
-                <InputLabel>Password</InputLabel>
-                <Field name="password">
-                  {({ field }) => (
-                    <Input fullWidth type="password" {...field} />
-                  )}
-                </Field>
-                {formik.touched.password && (
-                  <FormHelperText>{formik.errors.password}</FormHelperText>
-                )}
-              </FormControl>
+          if (account !== null && account.password === values.password) {
+            history.push("/home");
+          } else {
+            return (values.err = true);
+          }
+        }}
+      >
+        {({ values, touched, errors }) => (
+          <Form>
+            {console.log(values.err)}
 
-              <FormControl fullWidth margin="normal">
-                <Button color="primary" type="submit">
+            <Grid container justify="center" alignContent="center">
+              <Paper className={styles.Paper} elevation={4}>
+                <Typography className={styles.Typography} gutterBottom>
                   Login
-                </Button>
-              </FormControl>
+                </Typography>
 
-              <FormControl fullWidth margin="normal">
-                <Button color="primary" href="/register">
-                  Register
-                </Button>
-              </FormControl>
-            </Paper>
-          </Grid>
-        </Form>
-      )}
-    </Formik>
-  </div>
-);
+                {/* email */}
+                <FormControl
+                  fullWidth
+                  margin="normal"
+                  error={touched.email && !!errors.email}
+                >
+                  <Field name="email">
+                    {({ field }) => (
+                      <TextField
+                        id="email"
+                        label="Email"
+                        variant="outlined"
+                        {...field}
+                      />
+                    )}
+                  </Field>
+                  {touched.email && (
+                    <FormHelperText>{errors.email}</FormHelperText>
+                  )}
+                </FormControl>
+
+                {/* password */}
+                <FormControl
+                  fullWidth
+                  margin="normal"
+                  error={touched.password && !!errors.password}
+                >
+                  <Field name="password">
+                    {({ field }) => (
+                      <TextField
+                        id="password"
+                        label="Password"
+                        variant="outlined"
+                        type="password"
+                        {...field}
+                      />
+                    )}
+                  </Field>
+                  {touched.password && (
+                    <FormHelperText>{errors.password}</FormHelperText>
+                  )}
+                </FormControl>
+
+                <FormHelperText className={styles.p}>
+                  {values.err ? "Incorrect information" : ""}
+                </FormHelperText>
+
+                <FormControl fullWidth margin="normal">
+                  <Button variant="contained" color="primary" type="submit">
+                    Login
+                  </Button>
+                </FormControl>
+                <FormControl fullWidth margin="normal">
+                  <Button variant="contained" color="primary" href="/register">
+                    Register
+                  </Button>
+                </FormControl>
+              </Paper>
+            </Grid>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+};
 
 export default LoginFomik;
