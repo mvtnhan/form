@@ -1,34 +1,19 @@
 import { Formik, Form, Field } from "formik";
+import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+
+import { StyledPaper, StyledFormHelperText, StyledTypography } from "./Styled";
 
 import {
   Button,
   FormControl,
   FormHelperText,
   Grid,
-  Paper,
-  Typography,
   TextField,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
-  Paper: {
-    padding: "20px 15px",
-    marginTop: "30px",
-  },
-  Typography: {
-    textAlign: "center",
-  },
-  p: {
-    color: "red",
-    textAlign: "center",
-  },
-});
 const LoginFomik = () => {
-  const styles = useStyles();
   const history = useHistory();
   return (
     <div>
@@ -61,10 +46,8 @@ const LoginFomik = () => {
             {console.log(values.err)}
 
             <Grid container justify="center" alignContent="center">
-              <Paper className={styles.Paper} elevation={4}>
-                <Typography className={styles.Typography} gutterBottom>
-                  Login
-                </Typography>
+              <StyledPaper elevation={4}>
+                <StyledTypography gutterBottom>Login</StyledTypography>
 
                 {/* email */}
                 <FormControl
@@ -109,9 +92,9 @@ const LoginFomik = () => {
                   )}
                 </FormControl>
 
-                <FormHelperText className={styles.p}>
+                <StyledFormHelperText>
                   {values.err ? "Incorrect information" : ""}
-                </FormHelperText>
+                </StyledFormHelperText>
 
                 <FormControl fullWidth margin="normal">
                   <Button variant="contained" color="primary" type="submit">
@@ -123,7 +106,7 @@ const LoginFomik = () => {
                     Register
                   </Button>
                 </FormControl>
-              </Paper>
+              </StyledPaper>
             </Grid>
           </Form>
         )}

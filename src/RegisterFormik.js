@@ -1,10 +1,10 @@
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
-import React from "react";
 import { useHistory } from "react-router-dom";
+import * as Yup from "yup";
+import React from "react";
+
 import { location } from "./location.js";
+import { StyledPaper, StyledPhoneInput, StyledTypography } from "./Styled";
 
 import {
   Button,
@@ -13,32 +13,12 @@ import {
   FormControlLabel,
   FormHelperText,
   Grid,
-  Paper,
-  Typography,
 } from "@material-ui/core";
-
-import { makeStyles } from "@material-ui/core/styles";
 
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-const useStyles = makeStyles({
-  Phone: {
-    padding: "16px",
-    border: "1px solid",
-    borderRadius: "3px",
-    borderColor: "rgba(118, 118, 118, 0.3)",
-    "& input": {
-      border: "none",
-    },
-  },
-  Paper: {
-    padding: "20px 15px",
-    marginTop: "30px",
-  },
-});
 function RegisterFormik() {
-  const styles = useStyles();
   const history = useHistory();
   return (
     <div>
@@ -86,11 +66,10 @@ function RegisterFormik() {
       >
         {({ values, touched, errors, setFieldValue, setTouched }) => (
           <Form>
-            {console.log({ ...values })}
             <Grid container justify="center" alignContent="center">
               <Grid item xs={6} md={4}>
-                <Paper className={styles.Paper} elevation={4}>
-                  <Typography gutterBottom>Signup</Typography>
+                <StyledPaper elevation={4}>
+                  <StyledTypography gutterBottom>Signup</StyledTypography>
 
                   <Grid container direction="row" spacing={5}>
                     {/* firstName */}
@@ -166,6 +145,7 @@ function RegisterFormik() {
                     )}
                   </FormControl>
 
+                  {/* City */}
                   <FormControl fullWidth margin="normal">
                     <Field name="city">
                       {({ field }) => (
@@ -190,6 +170,7 @@ function RegisterFormik() {
                     </Field>
                   </FormControl>
 
+                  {/* District */}
                   <FormControl fullWidth margin="normal">
                     <Field name="district">
                       {({ field }) => (
@@ -215,11 +196,11 @@ function RegisterFormik() {
                     </Field>
                   </FormControl>
 
+                  {/* Phone */}
                   <FormControl fullWidth margin="normal">
                     <Field name="phoneNumber">
                       {({ field }) => (
-                        <PhoneInput
-                          className={styles.Phone}
+                        <StyledPhoneInput
                           placeholder="Enter phone number"
                           international
                           name="phoneNumber"
@@ -230,6 +211,7 @@ function RegisterFormik() {
                     </Field>
                   </FormControl>
 
+                  {/* Email */}
                   <FormControl
                     fullWidth
                     margin="normal"
@@ -250,6 +232,7 @@ function RegisterFormik() {
                     )}
                   </FormControl>
 
+                  {/* Pass */}
                   <FormControl
                     fullWidth
                     margin="normal"
@@ -271,6 +254,7 @@ function RegisterFormik() {
                     )}
                   </FormControl>
 
+                  {/* confirm pass */}
                   <FormControl
                     fullWidth
                     margin="normal"
@@ -292,6 +276,7 @@ function RegisterFormik() {
                     )}
                   </FormControl>
 
+                  {/* accept */}
                   <Field name="receiveLetter" type="checkbox">
                     {({ field }) => (
                       <FormControlLabel
@@ -301,13 +286,9 @@ function RegisterFormik() {
                     )}
                   </Field>
 
+                  {/* button */}
                   <FormControl fullWidth margin="normal">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      type="submit"
-                      href=""
-                    >
+                    <Button variant="contained" color="primary" type="submit">
                       Register
                     </Button>
                   </FormControl>
@@ -317,7 +298,7 @@ function RegisterFormik() {
                       Login
                     </Button>
                   </FormControl>
-                </Paper>
+                </StyledPaper>
               </Grid>
             </Grid>
           </Form>
