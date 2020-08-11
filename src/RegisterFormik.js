@@ -58,6 +58,7 @@ function RegisterFormik() {
         onSubmit={(values) => {
           if (localStorage.getItem(values.email) != null) {
             alert("Email is registered");
+            return (values.email = "");
           } else {
             localStorage[values.email] = JSON.stringify(values);
             history.push("/");
