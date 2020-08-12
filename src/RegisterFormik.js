@@ -294,13 +294,8 @@ function RegisterFormik() {
                     </Button>
                   </FormControl>
 
-                  <StyledTypography
-                    gutterBottom
-                    onClick={() => {
-                      history.push("/");
-                    }}
-                  >
-                    <a>Login</a>
+                  <StyledTypography gutterBottom>
+                    <a href="/">Login</a>
                   </StyledTypography>
                 </StyledPaper>
               </Grid>

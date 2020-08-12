@@ -12,6 +12,7 @@ export const StyledTypography = styled(Typography)`
   text-align: center;
   & a {
     cursor: pointer;
+    text-decoration: none;
     &:hover {
       color: blue;
     }
