@@ -10,8 +10,8 @@ register form
 
 login failed
 
-<p align="center"><img src="./loginerror.png" alt="Login Failed" />
+<p align="center"><img src="./loginfailed.png" alt="Login Failed" />
 
 error when the user touched but not enter key
 
-<p align="center"><img src="./errornotenter.png" alt="Error" />
+<p align="center"><img src="./error.png" alt="Error" />
