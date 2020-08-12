@@ -10,6 +10,12 @@ export const StyledPaper = styled(Paper)`
 
 export const StyledTypography = styled(Typography)`
   text-align: center;
+  & a {
+    cursor: pointer;
+    &:hover {
+      color: blue;
+    }
+  }
 `;
 
 export const StyledFormHelperText = styled(FormHelperText)`

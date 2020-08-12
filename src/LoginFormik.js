@@ -101,11 +101,14 @@ const LoginFomik = () => {
                     Login
                   </Button>
                 </FormControl>
-                <FormControl fullWidth margin="normal">
-                  <Button variant="contained" color="primary" href="/register">
-                    Register
-                  </Button>
-                </FormControl>
+                <StyledTypography
+                  gutterBottom
+                  onClick={() => {
+                    history.push("/register");
+                  }}
+                >
+                  <a>Register</a>
+                </StyledTypography>
               </StyledPaper>
             </Grid>
           </Form>

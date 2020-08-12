@@ -132,7 +132,7 @@ function RegisterFormik() {
                         <TextField
                           id="date"
                           variant="outlined"
-                          label="Birth Day"
+                          label="BirthDay"
                           type="date"
                           InputLabelProps={{
                             shrink: true,
@@ -202,7 +202,7 @@ function RegisterFormik() {
                     <Field name="phoneNumber">
                       {({ field }) => (
                         <StyledPhoneInput
-                          placeholder="Enter phone number"
+                          placeholder="Enter Phone Number"
                           international
                           name="phoneNumber"
                           value={values.phoneNumber}
@@ -294,11 +294,14 @@ function RegisterFormik() {
                     </Button>
                   </FormControl>
 
-                  <FormControl fullWidth margin="normal">
-                    <Button variant="contained" color="primary" href="/">
-                      Login
-                    </Button>
-                  </FormControl>
+                  <StyledTypography
+                    gutterBottom
+                    onClick={() => {
+                      history.push("/");
+                    }}
+                  >
+                    <a>Login</a>
+                  </StyledTypography>
                 </StyledPaper>
               </Grid>
             </Grid>
