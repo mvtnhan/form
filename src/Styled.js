@@ -1,11 +1,16 @@
 import styled from "styled-components";
-import { FormHelperText, Paper, Typography } from "@material-ui/core";
+import { FormHelperText, Paper, Typography, Grid } from "@material-ui/core";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-
 export const StyledPaper = styled(Paper)`
   padding: 20px 15px;
   margin-top: 30px;
+`;
+
+export const StyledGird = styled(Grid)`
+  justify-content: center;
+  align-content: center;
+  text-align: center;
 `;
 
 export const StyledTypography = styled(Typography)`
@@ -19,7 +24,7 @@ export const StyledTypography = styled(Typography)`
   }
 `;
 
-export const StyledFormHelperText = styled(FormHelperText)`
+export const StyledFormHelperText = styled.p`
   color: red;
   text-align: center;
 `;
@@ -32,4 +37,8 @@ export const StyledPhoneInput = styled(PhoneInput)`
   & input {
     border: none;
   }
+`;
+
+export const StyledPageBreak = styled.div`
+  border-bottom: 1px solid #dadde1;
 `;

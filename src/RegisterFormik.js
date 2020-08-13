@@ -4,7 +4,13 @@ import * as Yup from "yup";
 import React from "react";
 
 import { location } from "./location.js";
-import { StyledPaper, StyledPhoneInput, StyledTypography } from "./Styled";
+import {
+  StyledPaper,
+  StyledPhoneInput,
+  StyledTypography,
+  StyledPageBreak,
+  StyledGird,
+} from "./Styled";
 
 import {
   Button,
@@ -67,10 +73,10 @@ function RegisterFormik() {
       >
         {({ values, touched, errors, setFieldValue, setTouched }) => (
           <Form>
-            <Grid container justify="center" alignContent="center">
+            <StyledGird container>
               <Grid item xs={6} md={4}>
                 <StyledPaper elevation={4}>
-                  <StyledTypography gutterBottom>Signup</StyledTypography>
+                  <StyledTypography gutterBottom>Register</StyledTypography>
 
                   <Grid container direction="row" spacing={5}>
                     {/* firstName */}
@@ -132,7 +138,7 @@ function RegisterFormik() {
                         <TextField
                           id="date"
                           variant="outlined"
-                          label="BirthDay"
+                          label="Birthday"
                           type="date"
                           InputLabelProps={{
                             shrink: true,
@@ -281,7 +287,7 @@ function RegisterFormik() {
                   <Field name="receiveLetter" type="checkbox">
                     {({ field }) => (
                       <FormControlLabel
-                        control={<Checkbox {...field} />}
+                        control={<Checkbox color="primary" {...field} />}
                         label="I accept the Terms of Use & Privacy Policy"
                       />
                     )}
@@ -289,17 +295,29 @@ function RegisterFormik() {
 
                   {/* button */}
                   <FormControl fullWidth margin="normal">
-                    <Button variant="contained" color="primary" type="submit">
+                    <Button variant="contained" type="submit">
                       Register
                     </Button>
                   </FormControl>
 
-                  <StyledTypography gutterBottom>
-                    <a href="/">Login</a>
-                  </StyledTypography>
+                  <StyledPageBreak
+                    style={{ borderBottom: "1px solid #dadde1" }}
+                  />
+
+                  <FormControl margin="normal">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        history.push("/");
+                      }}
+                    >
+                      Login
+                    </Button>
+                  </FormControl>
                 </StyledPaper>
               </Grid>
-            </Grid>
+            </StyledGird>
           </Form>
         )}
       </Formik>

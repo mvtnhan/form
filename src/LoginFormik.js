@@ -3,7 +3,13 @@ import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import React from "react";
 
-import { StyledPaper, StyledFormHelperText, StyledTypography } from "./Styled";
+import {
+  StyledGird,
+  StyledPaper,
+  StyledFormHelperText,
+  StyledTypography,
+  StyledPageBreak,
+} from "./Styled";
 
 import {
   Button,
@@ -45,7 +51,7 @@ const LoginFomik = () => {
           <Form>
             {console.log(values.err)}
 
-            <Grid container justify="center" alignContent="center">
+            <StyledGird container>
               <StyledPaper elevation={4}>
                 <StyledTypography gutterBottom>Login</StyledTypography>
 
@@ -101,11 +107,23 @@ const LoginFomik = () => {
                     Login
                   </Button>
                 </FormControl>
-                <StyledTypography gutterBottom>
-                  <a href="/register">Register</a>
-                </StyledTypography>
+
+                <StyledFormHelperText
+                  style={{ borderBottom: "1px solid #dadde1" }}
+                />
+
+                <FormControl margin="normal">
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      history.push("/register");
+                    }}
+                  >
+                    Register
+                  </Button>
+                </FormControl>
               </StyledPaper>
-            </Grid>
+            </StyledGird>
           </Form>
         )}
       </Formik>
